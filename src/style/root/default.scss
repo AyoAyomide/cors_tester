@@ -1,0 +1,57 @@
+
+input[type="number"],
+input[type="text"],
+input[type="email"],
+input[type="password"],
+button:focus,
+select:focus,
+input:hover[type="number"]::-webkit-inner-spin-button,
+input:focus[type="number"]::-webkit-inner-spin-button,
+input:hover[type="number"]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	-moz-appearance: textfield;
+	appearance: none;
+	outline: none;
+	outline: none;
+}
+::-webkit-input-placeholder {
+	color: #8f8f8f;
+}
+::-moz-placeholder {
+	color: #8f8f8f;
+}
+:-ms-input-placeholder {
+	color: #8f8f8f;
+}
+:-moz-placeholder {
+	color: #8f8f8f;
+}
+
+// for body
+html,
+body {
+	font-size: 100%;
+	margin: 0;
+	padding: 0;
+	scroll-behavior: smooth;
+}
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+// for tags
+ul,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+button {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	color: #929292;
+}

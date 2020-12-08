@@ -3,9 +3,11 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import VueMaterial from 'vue-material'
+import '@/style/root/default.scss';
 
 Vue.config.productionTip = false
-
+Vue.use(VueMaterial);
 new Vue({
   router,
   store,
