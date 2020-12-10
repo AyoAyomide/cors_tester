@@ -1,15 +1,18 @@
 <template>
   <div>
-    <br>
-    <p class="tag md-display-1" md-alignment="centered">{{active}}</p>
+    <br />
+    <p class="tag md-display-1" md-alignment="centered">{{ httpMethod }}</p>
     <!-- empty state -->
     <md-empty-state
-      :class="{ cors }"
-      :md-icon="cors ? 'close' : 'done'"
-      :md-label="cors ? 'CORS FAILED' : 'CORS PASS'"
-      md-description="ERROR CODE : 200"
+      v-if="load"
+      :class="{ cors: resp[httpMethod].valid }"
+      :md-icon="resp[httpMethod].pass ? 'close' : 'done'"
+      :md-label="resp[httpMethod].pass ? 'CORS FAILED' : 'CORS PASS'"
     >
-      <p>Message</p>
+      <h5>{{ resp[httpMethod].tag }}</h5>
+      <h4>STATUS CODE : {{ resp[httpMethod].code }}</h4>
+      <br />
+      <p>{{ resp[httpMethod].message }}</p>
       <br />
       <md-button class="md-primary md-raised">try again</md-button>
     </md-empty-state>
@@ -17,11 +20,31 @@
 </template>
 <script>
 export default {
-  props: ["cors","active"],
+  props: ["cors", "httpMethod"],
+  watch: {
+    httpMethod: function () {
+      this.load = true;
+    },
+  },
   data() {
     return {
-      // cors: true,
+      load: false,
+      resp: {
+        PUT: { pass: true, code: 400, message: "hey there", tag: "error tag" },
+        GET: { pass: false, code: 400, message: "hey there", tag: "error tag" },
+      },
     };
+  },
+  mounted() {
+    console.log(this.httpMethod);
+    // this.resp[this.httpMethod].message
+  },
+  computed: {
+    error_code: function () {
+      // this.resp.code = "";
+
+      return {};
+    },
   },
 };
 </script>

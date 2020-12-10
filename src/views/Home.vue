@@ -2,7 +2,7 @@
   <div class="home">
     <url @http_change="get_method"></url>
     <respType @set-active="set_active" :http_method="middle_http"></respType>
-    <bottom :cors="cors" :active="activeMethod"></bottom>
+    <bottom :httpMethod="activeMethod"></bottom>
   </div>
 </template>
 
@@ -10,6 +10,7 @@
 import url from "@/components/api/url.vue";
 import respType from "@/components/api/middle.vue";
 import bottom from "@/components/api/bottom.vue";
+import cors_axios from "@/mixin/_axios.js";
 export default {
   components: {
     url,
@@ -18,10 +19,13 @@ export default {
   },
   data() {
     return {
-      cors: false,
       middle_http: [],
       activeMethod: "",
+      cors_axios: new cors_axios()
     };
+  },
+  mounted(){
+    this.cors_axios.testCors()
   },
   methods: {
     get_method: function (e) {

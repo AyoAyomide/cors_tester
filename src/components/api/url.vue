@@ -5,10 +5,7 @@
       <md-menu md-size="medium" md-align-trigger>
         <md-button md-menu-trigger>Method</md-button>
         <md-menu-content class="method_wrap">
-          <md-checkbox
-            v-model="autoMode"
-            value="AUTO"
-            @change="modeFunc('auto')"
+          <md-checkbox v-model="autoMode" value="AUTO" @change="modeFunc('auto')"
             >AUTO</md-checkbox
           >
           <md-checkbox
@@ -37,21 +34,22 @@
   </md-toolbar>
 </template>
 <script>
+import * as http from "@/mixin/method.js";
 export default {
   data() {
     return {
       autoMode: "AUTO",
-      checkedMethod: ["GET", "PUT", "POST", "DELETE"],
-      httpMethods: ["GET", "PUT", "POST", "DELETE"],
+      checkedMethod: http.Method.split(","),
+      httpMethods: http.Method.split(","),
     };
   },
-  mounted() {
-    this.$emit("http_change", ["GET", "PUT", "POST", "DELETE"]);
+  beforeMount() {
+    this.$emit("http_change", http.Method.split(","));
   },
   methods: {
     modeFunc: function (type) {
       type == "auto"
-        ? (this.checkedMethod = ["GET", "PUT", "POST", "DELETE"])
+        ? (this.checkedMethod = http.Method.split(","))
         : (this.autoMode = null);
       this.$emit("http_change", this.checkedMethod);
     },
