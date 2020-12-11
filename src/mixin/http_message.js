@@ -20,7 +20,7 @@ let http_code = {
     400: 'The server could not understand the request due to invalid syntax.',
     401: 'The requested page needs a username and a password',
     402: 'This response code is reserved for future use',
-    403: 'Access is forbidden to the requested page',
+    403: 'Access is forbidden for the requested page',
     404: 'The server can not find the requested page',
     405: 'The HTTP Request method is not allowed.',
     406: 'The server can not send response accepted by the client.',

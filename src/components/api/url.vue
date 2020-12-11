@@ -19,17 +19,17 @@
         </md-menu-content>
       </md-menu>
       <!-- url input -->
-      <input class="url_input" placeholder="URL....." />
+      <input class="url_input" placeholder="URL....." v-model="input_url" type="url" />
       <!-- send button -->
-      <md-button class="md-icon-button">
+      <md-button class="md-icon-button" @click="$emit('run-cors',input_url)">
         <md-icon>send</md-icon>
       </md-button>
       <!-- refresh -->
-      <div class="md-toolbar-section-end">
+      <!-- <div class="md-toolbar-section-end">
         <md-button class="md-icon-button">
           <md-icon>refresh</md-icon>
         </md-button>
-      </div>
+      </div> -->
     </div>
   </md-toolbar>
 </template>
@@ -41,6 +41,7 @@ export default {
       autoMode: "AUTO",
       checkedMethod: http.Method.split(","),
       httpMethods: http.Method.split(","),
+      input_url:"",
     };
   },
   beforeMount() {

@@ -5,22 +5,25 @@
     <!-- empty state -->
     <md-empty-state
       v-if="load"
-      :class="{ cors: resp[httpMethod].valid }"
-      :md-icon="resp[httpMethod].pass ? 'close' : 'done'"
-      :md-label="resp[httpMethod].pass ? 'CORS FAILED' : 'CORS PASS'"
+      :class="{
+        error_cors: resp[httpMethod].pass == false,
+        pass_cors: resp[httpMethod].pass == true,
+      }"
+      :md-icon="iconPack()"
+      :md-label="resp[httpMethod].pass ? 'CORS PASS' : 'CORS FAILED'"
     >
-      <h5>{{ resp[httpMethod].tag }}</h5>
+      <!-- <h5>{{ resp[httpMethod].tag }}</h5> -->
       <h4>STATUS CODE : {{ resp[httpMethod].code }}</h4>
       <br />
       <p>{{ resp[httpMethod].message }}</p>
       <br />
-      <md-button class="md-primary md-raised">try again</md-button>
+      <!-- <md-button class="md-primary md-raised">try again</md-button> -->
     </md-empty-state>
   </div>
 </template>
 <script>
 export default {
-  props: ["cors", "httpMethod"],
+  props: ["httpMethod", "resp"],
   watch: {
     httpMethod: function () {
       this.load = true;
@@ -28,22 +31,19 @@ export default {
   },
   data() {
     return {
+      error_cors: "error_cors",
+      pass_cors: "pass_cors",
       load: false,
-      resp: {
-        PUT: { pass: true, code: 400, message: "hey there", tag: "error tag" },
-        GET: { pass: false, code: 400, message: "hey there", tag: "error tag" },
-      },
     };
   },
-  mounted() {
-    console.log(this.httpMethod);
-    // this.resp[this.httpMethod].message
-  },
-  computed: {
-    error_code: function () {
-      // this.resp.code = "";
-
-      return {};
+  methods: {
+    iconPack: function () {
+      let iconObject = {
+        load: "api",
+        true: "done",
+        false: "close",
+      };
+      return iconObject[this.resp[this.httpMethod].pass];
     },
   },
 };
@@ -54,7 +54,7 @@ export default {
 }
 </style>
 <style lang="scss">
-.cors {
+.error_cors {
   .md-empty-state-container {
     color: red;
     i {
@@ -62,5 +62,14 @@ export default {
     }
   }
   color: red;
+}
+.pass_cors {
+  .md-empty-state-container {
+    color: rgb(0, 255, 76);
+    i {
+      color: rgb(0, 255, 76) !important;
+    }
+  }
+  color: rgb(0, 255, 76);
 }
 </style>
